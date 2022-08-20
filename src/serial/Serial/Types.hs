@@ -9,7 +9,7 @@ data Parity = Even | Odd | NoParity
   deriving (Show, Read, Eq)
 
 data SerialPortSettings = SerialPortSettings
-  { commSpeed   :: Word64,      -- ^ baudrate
+  { commSpeed   :: Word32,      -- ^ baudrate
     bitsPerWord :: Word8,       -- ^ Number of bits in a word
     stopb       :: StopBits,    -- ^ Number of stop bits
     parity      :: Parity,      -- ^ Type of parity

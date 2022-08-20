@@ -156,7 +156,7 @@ configureSettings termOpts settings =
              `withTime` timeout settings
              `withMinInput` 0
 
-commSpeedToBaudRate :: Word64 -> BaudRate
+commSpeedToBaudRate :: Word32 -> BaudRate
 commSpeedToBaudRate = BaudRate . CSpeed
 
 -- |Use the specified serial port
