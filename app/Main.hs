@@ -9,7 +9,6 @@ import           Rbus
 import           Serial
 import           Serial.Types
 -- import           Socket
-import           System.Posix            (sleep)
 
 -- main :: IO ()
 -- main = do
