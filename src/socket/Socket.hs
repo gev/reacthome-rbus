@@ -28,10 +28,12 @@ createSocket host = do
       bind sock $ addrAddress addr
       pure sock
 
-worker :: Socket -> (ByteString, SockAddr) -> IO ()
-worker sock (msg, client) = do
+worker :: Socket -> IO ()
+worker sock = forever $ do
+  (msg, client) <- recvFrom sock 1024
   print client
   print msg
   -- void $ sendTo sock msg client
 
-
+runSocket :: HostName -> IO ()
+runSocket host = createSocket host >>= worker
