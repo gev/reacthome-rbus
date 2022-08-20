@@ -23,13 +23,12 @@ prettyShow = show . toLazyByteString . byteStringHex
 
 withRbus :: FilePath -> IO ()
 withRbus device = withSerial device rbusSerialSettings
-  $ \port -> void $ forkIO $ forever $ do
+  $ \port -> forever $ do
     res <- recv port 1024
     print $ device <> ": " <> prettyShow res
 
 
 main :: IO ()
 main =  do
-  withRbus "/dev/ttyAMA1"
+  void $ forkIO $ withRbus "/dev/ttyAMA1"
   withRbus "/dev/ttyAMA2"
-  forever $ sleep 1
