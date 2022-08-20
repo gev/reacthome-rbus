@@ -46,23 +46,10 @@ openSerial dev settings = do
   let serial_port = SerialPort fd' defaultSerialSettings
   setSerialSettings serial_port settings
 
--- |Use specific encoding for an action and restore old encoding afterwards
-withEncoding :: TextEncoding -> IO a -> IO a
-#if MIN_VERSION_base(4,5,0)
-withEncoding encoding fun = do
-  cur_enc <- getForeignEncoding
-  setForeignEncoding encoding
-  result <- fun
-  setForeignEncoding cur_enc
-  return result
-#else
-withEncoding _ fun = fun
-#endif
-
 -- |Receive bytes, given the maximum number
 recv :: SerialPort -> Int -> IO B.ByteString
 recv port n = do
-  result <- withEncoding char8 $ Ex.try $ fdRead (fd port) count :: IO (Either IOError (String, ByteCount))
+  result <- Ex.try $ fdRead (fd port) count :: IO (Either IOError (String, ByteCount))
   return $ case result of
     Right (str, _) -> B.pack str
     Left _         -> B.empty
@@ -76,7 +63,7 @@ send
   -> B.ByteString
   -> IO Int          -- ^ Number of bytes actually sent
 send port msg =
-  fromIntegral <$> withEncoding char8 (fdWrite (fd port) (B.unpack msg))
+  fromIntegral <$> fdWrite (fd port) (B.unpack msg)
 
 
 -- |Flush buffers

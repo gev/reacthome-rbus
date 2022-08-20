@@ -1,8 +1,8 @@
 module Main where
 
-import           Control.Concurrent
-import           Control.Monad           (forever, void)
-import           Data.ByteString         (ByteString)
+import           Control.Concurrent.Async
+import           Control.Monad            (forever)
+import           Data.ByteString          (ByteString)
 import           Data.ByteString.Builder
 -- import           Network.Socke t.ByteString
 import           Rbus
@@ -26,8 +26,8 @@ withRbus device = withSerial device rbusSerialSettings
     res <- recv port 1024
     print $ device <> ": " <> prettyShow res
 
-
 main :: IO ()
-main =  do
-  void $ forkIO $ withRbus "/dev/ttyAMA1"
-  withRbus "/dev/ttyAMA2"
+main =
+  concurrently_
+    (withRbus "/dev/ttyAMA1")
+    (withRbus "/dev/ttyAMA2")
