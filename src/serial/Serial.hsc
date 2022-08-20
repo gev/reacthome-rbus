@@ -157,7 +157,7 @@ configureSettings termOpts settings =
              `withMinInput` 0
 
 commSpeedToBaudRate :: Word32 -> BaudRate
-commSpeedToBaudRate = BaudRate . CSpeed
+commSpeedToBaudRate = BaudRate . CSpeed . fromIntegral
 
 -- |Use the specified serial port
 withSerial :: FilePath -> SerialPortSettings -> ( SerialPort -> IO a ) -> IO a
