@@ -2,20 +2,23 @@ module Main where
 
 import           Control.Concurrent
 import           Control.Monad           (forever, void)
--- import           Network.Socket.ByteString
+import           Data.ByteString         (ByteString)
 import           Data.ByteString.Builder
+-- import           Network.Socke t.ByteString
 import           Rbus
 import           Serial
 import           Serial.Types
 -- import           Socket
+import           System.Posix            (sleep)
 
 -- main :: IO ()
 -- main = do
 --   sock <- createSocket "127.0.0.1"
---   void $ forkIO $ forever $ do
+--   forever $ do
 --     result <- recvFrom sock 4096
 --     forkIO $ worker sock result
 
+prettyShow :: ByteString -> String
 prettyShow = show . toLazyByteString . byteStringHex
 
 withRbus :: FilePath -> IO ()
@@ -26,6 +29,7 @@ withRbus device = withSerial device rbusSerialSettings
 
 
 main :: IO ()
-main = do
+main =  do
   withRbus "/dev/ttyAMA1"
   withRbus "/dev/ttyAMA2"
+  forever $ sleep 1
