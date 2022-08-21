@@ -40,6 +40,7 @@ executable reacthome-rbus
                       , bytestring  
                       , network     
                       , unix        ^>= 2.8.0.0
+                      , hpi
 
     hs-source-dirs:     app
                       , src/rbus
