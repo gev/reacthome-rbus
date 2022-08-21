@@ -1,10 +1,13 @@
 module Main where
+import           System.RaspberryPi.GPIO
 
-import           Control.Concurrent.Async (concurrently_)
-import           Rbus                     (runRbus)
+-- import           Control.Concurrent.Async (concurrently_)
+-- import           Rbus                     (runRbus)
 
 main :: IO ()
-main =
-  concurrently_
-    (runRbus "/dev/ttyAMA1")
-    (runRbus "/dev/ttyAMA2")
+main = do
+  setPinFunction Pin10 Output
+  setPinFunction Pin19 Output
+  -- concurrently_
+  --   (runRbus "/dev/ttyAMA1")
+  --   (runRbus "/dev/ttyAMA2")

@@ -29,6 +29,7 @@ executable reacthome-rbus
                       , Serial
                       , Serial.Types
                       , Socket
+                      , System.RaspberryPi.GPIO
 
     -- LANGUAGE extensions used by modules in this package.
     default-extensions: OverloadedStrings
@@ -40,9 +41,9 @@ executable reacthome-rbus
                       , bytestring  
                       , network     
                       , unix        ^>= 2.8.0.0
-                      , hpi
 
     hs-source-dirs:     app
+                      , src/gpio
                       , src/rbus
                       , src/serial
                       , src/socket
