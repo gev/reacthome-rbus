@@ -48,6 +48,6 @@ executable reacthome-rbus
                       , src/serial
                       , src/socket
 
-    extra-libraries:    bcm2835
+    -- extra-libraries:    bcm2835
 
     default-language:   Haskell2010
