@@ -140,7 +140,7 @@ configureSettings termOpts settings =
              `withoutMode` ExtendedFunctions
              `withMode` LocalMode
              `withMode` ReadEnable
-             `withTime` timeout settings
+             `withTime` 0
              `withMinInput` 0
 
 commSpeedToBaudRate :: Word32 -> BaudRate
