@@ -18,6 +18,7 @@ runRbus :: FilePath -> IO ()
 runRbus device = withSerial device rbusSerialSettings
   $ \port -> forever $ do
     res <- recv port 1
-    if B.length res > 0
-      then print $ device <> ": " <> prettyShow res
+    let resLenght = B.length res
+    if resLenght > 0
+      then print $ device <> ": " <> show  resLenght <> " " <> prettyShow res
       else pure ()
