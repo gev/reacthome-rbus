@@ -141,7 +141,7 @@ configureSettings termOpts settings =
              `withMode` LocalMode
              `withMode` ReadEnable
              `withTime` 0
-             `withMinInput` 0
+             `withMinInput` 1
 
 commSpeedToBaudRate :: Word32 -> BaudRate
 commSpeedToBaudRate = BaudRate . CSpeed . fromIntegral
