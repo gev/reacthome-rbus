@@ -8,7 +8,7 @@ import           Serial.Types
 
 rbusSerialSettings :: SerialPortSettings
 rbusSerialSettings =
-  SerialPortSettings 1_000_000 8 One NoParity 1
+  SerialPortSettings 1_000_000 8 One NoParity 0
 
 
 prettyShow :: ByteString -> String
