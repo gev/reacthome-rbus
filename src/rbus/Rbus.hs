@@ -17,5 +17,5 @@ prettyShow = show . toLazyByteString . byteStringHex
 runRbus :: FilePath -> IO ()
 runRbus device = withSerial device rbusSerialSettings
   $ \port -> forever $ do
-    res <- recv port 1024
+    res <- recv port 1
     print $ device <> ": " <> prettyShow res
