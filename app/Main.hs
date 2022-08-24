@@ -6,7 +6,7 @@ import           System.RaspberryPi.GPIO (writePin)
 -- import           Rbus                     (runRbus)
 
 main :: IO ()
-main = do
+main = withGPIO $ do
   writePin Pin12 True
   writePin Pin16 True
   -- res <- try $ do
