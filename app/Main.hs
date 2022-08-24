@@ -7,6 +7,10 @@ import           System.RaspberryPi.GPIO (writePin)
 
 main :: IO ()
 main = withGPIO $ do
+  gpio12 <- readPin Pin12
+  print $ "gpio12: " <> show gpio12
+  gpio16 <- readPin Pin16
+  print $ "gpio16: " <> show gpio16
   writePin Pin12 True
   writePin Pin16 True
   -- res <- try $ do
