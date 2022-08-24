@@ -6,8 +6,12 @@ import           System.RaspberryPi.GPIO
 
 main :: IO ()
 main = do
-  setPinFunction Pin10 Output
-  setPinFunction Pin19 Output
+  -- res <- try $ do 
+    setPinFunction Pin12 Output
+    setPinFunction Pin16 Output
+  -- case res of
+  --   Left e -> print e
+  --   _ -> print "Ok"
 -- main =
 --   concurrently_
 --     (runRbus "/dev/ttyAMA1")
