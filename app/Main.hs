@@ -5,20 +5,16 @@ import           System.RaspberryPi.GPIO (writePin)
 -- import           Control.Concurrent.Async (concurrently_)
 -- import           Rbus                     (runRbus)
 
+toggle gpio = do
+  v <- readPin gpio
+  print $ show gpio <> ": " <> show v
+  writePin gpio $ not v
+
 main :: IO ()
 main = withGPIO $ do
-  gpio12 <- readPin Pin12
-  print $ "gpio12: " <> show gpio12
-  gpio16 <- readPin Pin16
-  print $ "gpio16: " <> show gpio16
-  writePin Pin12 True
-  writePin Pin16 True
-  -- res <- try $ do
-    -- setPinFunction Pin12 Output
-    -- setPinFunction Pin16 Output
-  -- case res of
-  --   Left e -> print e
-  --   _ -> print "Ok"
+  toggle GPIO12
+  toggle GPIO16
+
 -- main =
 --   concurrently_
 --     (runRbus "/dev/ttyAMA1")

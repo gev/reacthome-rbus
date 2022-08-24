@@ -25,13 +25,15 @@ import           Foreign.C.String
 import           GHC.IO.Exception
 -- |This describes the pins on the Raspberry Pi boards. Since the BCM2835 SOC internally uses different numbers (and these numbers
 -- differ between versions, the library internally translates this pin number to the correct number.
-data Pin =  -- |Pins for the P1 connector of the V2 revision of the Raspberry Pi
-            Pin03|Pin05|Pin07|Pin08|Pin10|Pin11|Pin12|Pin13|Pin15|Pin16|Pin18|Pin19|Pin21|Pin22|Pin23|Pin24|Pin26|Pin36|
+data Pin =  GPIO02|GPIO03|GPIO04|GPIO05|GPIO06|GPIO07|GPIO08|GPIO09|GPIO10|GPIO11|GPIO12|
+            GPIO13|GPIO14|GPIO15|GPIO16|GPIO17|GPIO18|GPIO19|GPIO20|GPIO21|GPIO22|GPIO23|
+            GPIO24|GPIO25|GPIO26|GPIO27|
+            -- |Pins for the P1 connector of the V2 revision of the Raspberry Pi
+            Pin03|Pin05|Pin07|Pin08|Pin10|Pin11|Pin12|Pin13|Pin15|Pin16|Pin18|Pin19|Pin21|Pin22|Pin23|Pin24|Pin26|Pin29|Pin31|Pin32|Pin33|Pin35|Pin36|Pin37|Pin38|Pin40|
             -- |Pins for the P5 connector of the V2 revision of the Raspberry Pi
             PinP5_03|PinP5_04|PinP5_05|PinP5_06|
             -- |Pins for the P1 connector of the V1 revision of the Raspberry Pi
-            PinV1_03|PinV1_05|PinV1_07|PinV1_08|PinV1_10|PinV1_11|PinV1_12|PinV1_13|PinV1_15|PinV1_16|PinV1_18|PinV1_19|PinV1_21|
-            PinV1_22|PinV1_23|PinV1_24|PinV1_26
+            PinV1_03|PinV1_05|PinV1_07|PinV1_08|PinV1_10|PinV1_11|PinV1_12|PinV1_13|PinV1_15|PinV1_16|PinV1_18|PinV1_19|PinV1_21|PinV1_22|PinV1_23|PinV1_24|PinV1_26
             deriving (Eq,Show)
 
 -- |A GPIO pin can be either set to input mode, output mode or an alternative mode.
@@ -112,7 +114,43 @@ getHwPin Pin22    = 25
 getHwPin Pin23    = 11
 getHwPin Pin24    = 8
 getHwPin Pin26    = 7
+getHwPin Pin29    = 5
+getHwPin Pin31    = 6
+getHwPin Pin32    = 12
+getHwPin Pin33    = 13
+getHwPin Pin35    = 19
 getHwPin Pin36    = 16
+getHwPin Pin37    = 26
+getHwPin Pin38    = 20
+getHwPin Pin40    = 21
+
+getHwPin GPIO02    = 2
+getHwPin GPIO03    = 3
+getHwPin GPIO04    = 4
+getHwPin GPIO05    = 5
+getHwPin GPIO06    = 6
+getHwPin GPIO07    = 7
+getHwPin GPIO08    = 8
+getHwPin GPIO09    = 9
+getHwPin GPIO10    = 10
+getHwPin GPIO11    = 11
+getHwPin GPIO12    = 12
+getHwPin GPIO13    = 13
+getHwPin GPIO14    = 14
+getHwPin GPIO15    = 15
+getHwPin GPIO16    = 16
+getHwPin GPIO17    = 17
+getHwPin GPIO18    = 18
+getHwPin GPIO19    = 19
+getHwPin GPIO20    = 20
+getHwPin GPIO21    = 21
+getHwPin GPIO22    = 22
+getHwPin GPIO23    = 23
+getHwPin GPIO24    = 24
+getHwPin GPIO25    = 25
+getHwPin GPIO26    = 26
+getHwPin GPIO27    = 27
+
 --for the P5 connector on V2 boards
 getHwPin PinP5_03 = 28
 getHwPin PinP5_04 = 29
