@@ -48,7 +48,7 @@ executable reacthome-rbus
                       , src/serial
                       , src/socket
 
-    c-source-dirs:      srcc
+    c-sources:          srcc
 
     -- extra-libraries:    bcm2835
 
