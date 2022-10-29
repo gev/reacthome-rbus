@@ -1,6 +1,6 @@
 module Rbus where
 
-import           Control.Monad           (forever)
+import           Control.Monad           (forever, when)
 import           Data.ByteString         as B
 import           Data.ByteString.Builder (byteStringHex, toLazyByteString)
 import           Serial                  (recv, withSerial)
@@ -12,13 +12,13 @@ rbusSerialSettings =
 
 
 prettyShow :: ByteString -> String
-prettyShow = show . toLazyByteString . byteStringHex
+prettyShow = show . byteStringHex
+-- prettyShow = show . toLazyByteString . byteStringHex
 
 runRbus :: FilePath -> IO ()
 runRbus device = withSerial device rbusSerialSettings
   $ \port -> forever $ do
     res <- recv port 1
     let resLenght = B.length res
-    if resLenght > 0
-      then print $ device <> ": " <> show  resLenght <> " " <> prettyShow res
-      else pure ()
+    when (resLenght > 0) $
+      print $ device <> ": " <> show  resLenght <> " " <> prettyShow res

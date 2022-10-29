@@ -1,5 +1,5 @@
 module Socket where
-
+  
 import           Control.Concurrent
 import           Control.Exception         (bracketOnError)
 import           Control.Monad
