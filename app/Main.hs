@@ -36,7 +36,7 @@ main = withGPIO . withSerial
         send port $ B.pack "Hello world!"
         drain port
         off GPIO16
-        threadDelay 20_000_000
+        threadDelay 1_000_000
 
 -- main =
 --   concurrently_
