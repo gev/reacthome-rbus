@@ -6,7 +6,7 @@ import           Control.Concurrent      (threadDelay)
 import           Control.Monad           (forever)
 import qualified Data.ByteString.Char8   as B
 import           Rbus                    (runRbus)
-import           Serial                  (drain, send, withSerial)
+import           Serial                  (drain, flush, send, withSerial)
 import           Serial.Types            (Parity (NoParity),
                                           SerialPortSettings (SerialPortSettings),
                                           StopBits (One))
@@ -34,7 +34,8 @@ main = withGPIO . withSerial
       $ \port -> forever $ do
         on GPIO16
         send port $ B.pack "Hello world!"
-        drain port
+        -- drain port
+        flush port
         off GPIO16
         threadDelay 1_000_000
 
