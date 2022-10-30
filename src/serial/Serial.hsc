@@ -101,6 +101,8 @@ setSerialSettings port new_settings = do
   termOpts <- getTerminalAttributes $ fd port
   let termOpts' = configureSettings termOpts new_settings
   setTerminalAttributes (fd port) termOpts' WhenDrained
+  state <- getTerminalAttributes (fd port)
+  print state
   return $ SerialPort (fd port) new_settings
 
 -- |Get the serial port settings
