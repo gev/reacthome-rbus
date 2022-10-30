@@ -6,6 +6,7 @@ module Serial
   , recv
   , send
   , flush
+  , drain
   , setSerialSettings
   , withSerial
   ) where 
@@ -69,6 +70,9 @@ send port msg =
 -- |Flush buffers
 flush :: SerialPort -> IO ()
 flush port = discardData (fd port) BothQueues
+
+drain :: SerialPort -> IO ()
+drain port = drainOutput (fd port)
 
 
 -- |Close the serial port

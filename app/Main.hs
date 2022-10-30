@@ -6,7 +6,7 @@ import           Control.Concurrent      (threadDelay)
 import           Control.Monad           (forever)
 import qualified Data.ByteString.Char8   as B
 import           Rbus                    (runRbus)
-import           Serial                  (send, withSerial)
+import           Serial                  (drain, send, withSerial)
 import           Serial.Types            (Parity (NoParity),
                                           SerialPortSettings (SerialPortSettings),
                                           StopBits (One))
@@ -29,12 +29,12 @@ off :: Pin -> IO ()
 off = write False
 
 main :: IO ()
-main =
-  withSerial "/dev/ttyAMA1" (SerialPortSettings 9600 8 One NoParity 0)
-    $ \port -> forever $ do
-      withGPIO $ do
+main = withGPIO . withSerial
+      "/dev/ttyAMA1" (SerialPortSettings 9600 8 One NoParity 0)
+      $ \port -> forever $ do
         on GPIO16
         send port $ B.pack "Hello world!"
+        drain port
         off GPIO16
         threadDelay 20_000_000
 
