@@ -34,7 +34,7 @@ main = withGPIO . withSerial
       $ \port -> forever $ do
         on GPIO16
         send port $ B.pack "Hello world!"
-        drain port
+        -- drain port
         -- flush port
         off GPIO16
         threadDelay 1_000_000
