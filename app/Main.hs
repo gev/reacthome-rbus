@@ -1,16 +1,12 @@
 module Main where
 
-import           System.RaspberryPi.GPIO
 -- import           Control.Concurrent.Async (concurrently_)
-import           Control.Concurrent      (threadDelay)
-import           Control.Monad           (forever)
-import qualified Data.ByteString.Char8   as B
-import           Rbus                    (runRbus)
-import           Serial                  (drain, flush, send, withSerial)
-import           Serial.Types            (Parity (NoParity),
-                                          SerialPortSettings (SerialPortSettings),
-                                          StopBits (One))
-import           System.Posix            (sleep)
+import           Control.Concurrent    (threadDelay)
+import           Control.Monad         (forever)
+import qualified Data.ByteString.Char8 as B
+import           Rbus                  (runRbus)
+import           Serial                (drain, flush, send, withSerial)
+import           System.Posix          (sleep)
 
 
 toggle :: Pin -> IO ()
