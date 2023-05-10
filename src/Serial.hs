@@ -10,19 +10,19 @@ module Serial
   ) where
 
 import           Control.Exception
-import           Data.Bits
 import           Data.ByteString.Char8
 import           Data.Typeable
-import           System.Posix.IO
+import           System.Posix.ByteString
+import           System.Posix.IO.ByteString
 import           System.Posix.Terminal
 import           System.Posix.Types
 
 
 
-newtype SerialPort = SerialPort {fd :: Fd} deriving (Show)
+newtype SerialPort = SerialPort {fd :: Fd}
 
 -- |Open and configure a serial port
-openSerial :: FilePath -> IO SerialPort
+openSerial :: RawFilePath -> IO SerialPort
 openSerial dev = do
   fd' <- openFd dev ReadWrite defaultFileFlags { noctty = True
                                                , nonBlock = True
@@ -42,18 +42,15 @@ setSerialSettings port = do
 -- |Receive bytes, given the maximum number
 recv :: SerialPort -> Int -> IO ByteString
 recv port n = do
-  result <- try $ fdRead (fd port) count :: IO (Either IOError (String, ByteCount))
-  return $ case result of
-    Right (str, _) -> pack str
-    Left _         -> empty
-  where
-    count = fromIntegral n
-
+  result <- try $ fdRead (fd port) (fromIntegral n) :: IO (Either IOError ByteString)
+  pure $ case result of
+    Right str -> str
+    Left  _   -> empty
 
 -- |Send bytes
 send :: SerialPort -> ByteString -> IO Int
 send port msg =
-  fromIntegral <$> fdWrite (fd port) (unpack msg)
+  fromIntegral <$> fdWrite (fd port) msg
 
 
 -- |Flush buffers
@@ -98,5 +95,5 @@ configureSettings termOpts =
              `withMinInput`     1
 
 
-withSerial :: FilePath -> (SerialPort -> IO a) -> IO a
+withSerial :: RawFilePath -> (SerialPort -> IO a) -> IO a
 withSerial dev = bracket (openSerial dev) closeSerial
