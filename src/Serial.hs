@@ -75,6 +75,7 @@ configureSettings termOpts =
     termOpts `withInputSpeed`   1_000_000
              `withOutputSpeed`  1_000_000
              `withBits`         8
+
              `withoutMode`      TwoStopBits
              `withoutMode`      EnableParity
              `withoutMode`      StartStopInput
@@ -89,8 +90,10 @@ configureSettings termOpts =
              `withoutMode`      HangupOnClose
              `withoutMode`      KeyboardInterrupts
              `withoutMode`      ExtendedFunctions
+
              `withMode`         LocalMode
              `withMode`         ReadEnable
+
              `withTime`         0
              `withMinInput`     1
 
