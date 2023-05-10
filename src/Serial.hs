@@ -39,11 +39,8 @@ setSerialSettings port = do
 
 -- |Receive bytes, given the maximum number
 recv :: SerialPort -> Ptr Word8 -> Int -> IO Int
-recv port buf n = do
-  result <- try $ fdReadBuf (fd port) buf (fromIntegral n) :: IO (Either IOError ByteCount)
-  pure $ case result of
-    Right n -> fromIntegral n
-    Left  _ -> 0
+recv port buf n =
+  fromIntegral <$> fdReadBuf (fd port) buf (fromIntegral n)
 
 -- |Send bytes
 send :: SerialPort -> Ptr Word8 -> Int -> IO Int
