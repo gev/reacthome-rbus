@@ -32,7 +32,7 @@ openSerial dev = do
   setSerialSettings serial_port
 
 
-setSerialSettings :: SerialPort -> IO SerialPort        -- ^ New serial port
+setSerialSettings :: SerialPort -> IO SerialPort
 setSerialSettings port = do
   termOpts <- getTerminalAttributes $ fd port
   let termOpts' = configureSettings termOpts
@@ -51,7 +51,7 @@ recv port n = do
 
 
 -- |Send bytes
-send :: SerialPort -> ByteString -> IO Int          -- ^ Number of bytes actually sent
+send :: SerialPort -> ByteString -> IO Int
 send port msg =
   fromIntegral <$> fdWrite (fd port) (unpack msg)
 
@@ -95,5 +95,5 @@ configureSettings termOpts =
              `withMinInput`     1
 
 
-withSerial :: FilePath -> ( SerialPort -> IO a ) -> IO a
+withSerial :: FilePath -> (SerialPort -> IO a) -> IO a
 withSerial dev = bracket (openSerial dev) closeSerial
