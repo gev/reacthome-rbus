@@ -38,7 +38,7 @@ executable reacthome-rbus
                       , async
                       , bytestring  
                       , network     
-                      , unix       
+                      , unix        ^>= 2.8.0.0
 
     hs-source-dirs:     app, src
 
