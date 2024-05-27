@@ -40,12 +40,14 @@ send
 send port msg = fromIntegral <$> BIO.fdWrite (fd port) msg
 
 
+-- |Flush buffers
 flush :: SerialPort -> IO ()
 flush port = discardData (fd port) BothQueues
 
 drain :: SerialPort -> IO ()
 drain port = drainOutput (fd port)
 
+-- |Close the serial port
 closeSerial :: SerialPort -> IO ()
 closeSerial = closeFd . fd
 
