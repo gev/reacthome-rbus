@@ -1,4 +1,4 @@
-module Socket where
+module UDP where
   
 import           Control.Concurrent
 import           Control.Exception         (bracketOnError)

@@ -1,4 +1,4 @@
-cabal-version:          2.4
+cabal-version:          3.0
 name:                   reacthome-rbus
 version:                0.1.0.0
 
@@ -27,19 +27,19 @@ executable reacthome-rbus
     -- Modules included in this executable, other than Main.
     other-modules:      Rbus
                       , Serial
-                      , Socket
+                      , UDP
 
     -- LANGUAGE extensions used by modules in this package.
     default-extensions: OverloadedStrings
                       , NumericUnderscores
                       , LambdaCase
 
-    build-depends:      base        ^>= 4.16.4.0
+    build-depends:      base       >= 4.17 && < 5.0
                       , async
                       , bytestring  
                       , network     
-                      , unix        ^>= 2.8.0.0
+                      , unix       
 
     hs-source-dirs:     app, src
 
-    default-language:   Haskell2010
+    default-language:   GHC2021
