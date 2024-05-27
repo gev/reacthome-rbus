@@ -1,27 +1,44 @@
 module Serial where
 
 import           Control.Exception
+import           Data.ByteString
+import           Data.Either
 import           Foreign
+import           GHC.IO.Encoding
+import           System.IO
 import           System.Posix.IO
+import qualified System.Posix.IO.ByteString as BIO
 import           System.Posix.Terminal
 import           System.Posix.Types
 
 
 newtype SerialPort = SerialPort {fd :: Fd}
 
-openSerial :: FilePath -> IO SerialPort
+-- |Open and configure a serial port
+openSerial
+    :: FilePath         -- ^ Serial port, such as @\/dev\/ttyS0@ or @\/dev\/ttyUSB0@
+    -> IO SerialPort
 openSerial dev = do
-  fd' <- openFd dev ReadWrite defaultFileFlags { noctty = True, nonBlock = True}
-  setFdOption fd' NonBlockingRead False
-  termOpts <- getTerminalAttributes fd'
-  setTerminalAttributes fd' (configureSettings termOpts) WhenDrained
-  pure $ SerialPort fd'
+    fd' <- openFd dev ReadWrite defaultFileFlags { noctty = True, nonBlock = True}
+    setFdOption fd' NonBlockingRead False
+    termOpts <- getTerminalAttributes fd'
+    setTerminalAttributes fd' (configureSettings termOpts) WhenDrained
+    pure $ SerialPort fd'
 
-recv :: SerialPort -> Ptr Word8 -> Int -> IO Int
-recv port buf n = fromIntegral <$> fdReadBuf (fd port) buf (fromIntegral n)
+-- |Receive bytes, given the maximum number
+recv
+    :: SerialPort
+    -> Int
+    -> IO ByteString
+recv port n = BIO.fdRead (fd port) $ fromIntegral n
 
-send :: SerialPort -> Ptr Word8 -> Int -> IO Int
-send port msg n = fromIntegral <$> fdWriteBuf (fd port) msg (fromIntegral n)
+-- |Send bytes
+send
+    :: SerialPort
+    -> ByteString
+    -> IO Int          -- ^ Number of bytes actually sent
+send port msg = fromIntegral <$> BIO.fdWrite (fd port) msg
+
 
 flush :: SerialPort -> IO ()
 flush port = discardData (fd port) BothQueues
