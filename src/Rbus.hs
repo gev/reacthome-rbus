@@ -15,6 +15,6 @@ runRbus device =
   withSerial "/dev/ttyAMA0"
   $ \port -> forever $ do
     res <- recv port 1
-    let resLenght = B.length res
-    when (resLenght > 0) $
-      print $ device <> ": " <> show  resLenght <> " " <> prettyShow res
+    let resLength = B.length res
+    when (resLength > 0) $
+      print $ device <> ": " <> show  resLength <> " " <> prettyShow res
